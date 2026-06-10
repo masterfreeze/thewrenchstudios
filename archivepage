@@ -30,3 +30,15 @@
   .archive-item-tag.comics { color: var(--color-comic); }
   .archive-item-tag.art { color: var(--color-art); }
   .archive-item-tag.other { color: #888780; }
+
+
+
+<!-- ═══════════════════════════════ ARCHIVE PAGE ═══════════════════════════════ -->
+<div class="page" id="page-archive">
+  <div class="archive-section">
+    <div class="section-label">Full archive</div>
+    <div id="archiveList">
+      <!-- Injected by JS -->
+    </div>
+  </div>
+</div>
