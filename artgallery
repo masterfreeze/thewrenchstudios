@@ -37,5 +37,10 @@
   .art-thumb-placeholder svg { width: 28px; height: 28px; }
   .art-thumb-placeholder span { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; }
 
-// PASTER UNDER RENDER POSTS SECTION
+// PASTE UNDER RENDER POSTS SECTION
     const artGrid = document.getElementById("artGrid");
+       
+    /* hide art gallery if filtering to non-art section */
+    const showArt = activeFilter === "all" || activeFilter === "art";
+    artLabel.style.display = showArt ? "block" : "none";
+    artGrid.style.display = showArt ? "grid" : "none";
