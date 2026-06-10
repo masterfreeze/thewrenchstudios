@@ -608,7 +608,33 @@
   };
 
   let activeFilter = "all";
+ 
+  /*EMBEDDING FUNCTION*/
+ function openPost(post) {
+  showPage("viewer");
 
+  document.getElementById("viewerTitle").textContent =
+    post.title;
+
+  const container =
+    document.getElementById("viewerContent");
+
+  if (post.file.endsWith(".pdf")) {
+    container.innerHTML = `
+      <iframe
+        src="${post.file}"
+        width="100%"
+        height="900">
+      </iframe>
+    `;
+  } else {
+    container.innerHTML = `
+      <img
+        src="${post.file}"
+        style="max-width:100%">
+    `;
+  }
+}
   /* ── RENDER POSTS ── */
   function renderPosts() {
     const grid = document.getElementById("postGrid");
@@ -639,7 +665,7 @@
 
         card.addEventListener("click", () => {
            if (p.file) {
-              window.open(p.file, "_blank");
+              openPost(p);
            }
          });
 
