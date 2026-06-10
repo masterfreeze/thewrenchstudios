@@ -36,3 +36,6 @@
   }
   .art-thumb-placeholder svg { width: 28px; height: 28px; }
   .art-thumb-placeholder span { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; }
+
+// PASTER UNDER RENDER POSTS SECTION
+    const artGrid = document.getElementById("artGrid");
