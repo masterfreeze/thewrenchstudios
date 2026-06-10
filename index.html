@@ -752,67 +752,6 @@
     }
   });
 
-  /* ── UPLOAD MODAL ── */
-  function openUploadModal() {
-    document.getElementById("uploadModal").classList.add("open");
-  }
-  function closeUploadModal() {
-    document.getElementById("uploadModal").classList.remove("open");
-  }
-  document.getElementById("cancelUpload").addEventListener("click", closeUploadModal);
-  document.getElementById("uploadModal").addEventListener("click", e => {
-    if (e.target === e.currentTarget) closeUploadModal();
-  });
-
-  document.getElementById("dropZone").addEventListener("click", () => {
-    document.getElementById("file-input").click();
-  });
-
-  document.getElementById("dropZone").addEventListener("dragover", e => {
-    e.preventDefault();
-    e.currentTarget.style.borderColor = "var(--accent)";
-  });
-  document.getElementById("dropZone").addEventListener("dragleave", e => {
-    e.currentTarget.style.borderColor = "";
-  });
-  document.getElementById("dropZone").addEventListener("drop", e => {
-    e.preventDefault();
-    e.currentTarget.style.borderColor = "";
-    const file = e.dataTransfer.files[0];
-    if (file) showSelectedFile(file.name);
-  });
-  document.getElementById("file-input").addEventListener("change", e => {
-    if (e.target.files[0]) showSelectedFile(e.target.files[0].name);
-  });
-  function showSelectedFile(name) {
-    document.querySelector(".form-drop-label").textContent = name;
-  }
-
-  document.getElementById("confirmUpload").addEventListener("click", () => {
-    const title   = document.getElementById("upload-title").value.trim();
-    const section = document.getElementById("upload-section").value;
-    const desc    = document.getElementById("upload-desc").value.trim();
-    if (!title || !section) {
-      alert("Please fill in a title and choose a section.");
-      return;
-    }
-    const newPost = {
-      id: Date.now(),
-      title,
-      section,
-      date: new Date().toISOString().slice(0,10),
-      meta: desc || "New post",
-    };
-    posts.unshift(newPost);
-    renderPosts();
-    renderArchive();
-    closeUploadModal();
-    document.getElementById("upload-title").value = "";
-    document.getElementById("upload-section").value = "";
-    document.getElementById("upload-desc").value = "";
-    document.querySelector(".form-drop-label").textContent = "Click to choose a file, or drag and drop";
-  });
-
   /* ── INIT ── */
   renderPosts();
 </script>
