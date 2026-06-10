@@ -536,12 +536,6 @@
     <div class="art-grid" id="artGrid">
     </div>
 
-    <div class="upload-section">
-      <button class="upload-bar" onclick="openUploadModal()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 15V3m0 0L8 7m4-4 4 4M3 17v2a2 2 0 002 2h14a2 2 0 002-2v-2"/></svg>
-        <span>Upload a new piece — blog post, PDF, artwork, or comic scan</span>
-      </button>
-    </div>
   </div>
 
   <!-- DONATE -->
@@ -717,7 +711,7 @@
     if (e.target === e.currentTarget) closeSearch();
   });
   document.addEventListener("keydown", e => {
-    if (e.key === "Escape") { closeSearch(); closeUploadModal(); }
+    if (e.key === "Escape") { closeSearch(); }
   });
   function closeSearch() {
     document.getElementById("searchOverlay").classList.remove("open");
