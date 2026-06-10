@@ -258,45 +258,6 @@
     letter-spacing: 0.04em;
   }
 
-  /* ── ART GALLERY ── */
-  .art-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 1px;
-    background: var(--border);
-    border: 0.5px solid var(--border);
-    border-radius: 8px;
-    overflow: hidden;
-  }
-
-  .art-thumb {
-    background: var(--bg-card);
-    aspect-ratio: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background 0.15s;
-    overflow: hidden;
-    position: relative;
-  }
-  .art-thumb:hover { background: var(--bg-hover); }
-  .art-thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-  .art-thumb-placeholder {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    color: var(--border-mid);
-  }
-  .art-thumb-placeholder svg { width: 28px; height: 28px; }
-  .art-thumb-placeholder span { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; }
-
   /* ── DONATE ── */
   .donate-section {
     margin: 0 40px;
@@ -426,39 +387,7 @@
   }
   .about-body p + p { margin-top: 16px; }
 
-  /* ── ARCHIVE PAGE ── */
-  .archive-section { padding: 40px; }
-  .archive-year {
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--text-dim);
-    margin: 28px 0 12px;
-  }
-  .archive-list { list-style: none; }
-  .archive-item {
-    display: flex;
-    align-items: baseline;
-    gap: 16px;
-    padding: 12px 0;
-    border-bottom: 0.5px solid var(--border);
-    cursor: pointer;
-    transition: background 0.1s;
-  }
-  .archive-item:hover .archive-item-title { color: var(--accent); }
-  .archive-item-date { font-size: 11px; color: var(--text-dim); min-width: 80px; }
-  .archive-item-title { font-size: 14px; color: var(--text-primary); flex: 1; transition: color 0.15s; }
-  .archive-item-tag {
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-  .archive-item-tag.icebox { color: var(--color-blog); }
-  .archive-item-tag.library { color: var(--color-story); }
-  .archive-item-tag.comics { color: var(--color-comic); }
-  .archive-item-tag.art { color: var(--color-art); }
-  .archive-item-tag.other { color: #888780; }
-
+ 
   /* ── PAGE VISIBILITY ── */
   .page { display: none; }
   .page.active { display: block; }
@@ -579,15 +508,7 @@
   </div>
 </div>
 
-<!-- ═══════════════════════════════ ARCHIVE PAGE ═══════════════════════════════ -->
-<div class="page" id="page-archive">
-  <div class="archive-section">
-    <div class="section-label">Full archive</div>
-    <div id="archiveList">
-      <!-- Injected by JS -->
-    </div>
-  </div>
-</div>
+
 
 <!-- HIDDEN VIEWER PAGE -->
 <div class="page" id="page-viewer">
@@ -650,7 +571,7 @@
     const grid = document.getElementById("postGrid");
     const empty = document.getElementById("emptyState");
     const artLabel = document.getElementById("artGalleryLabel");
-    const artGrid = document.getElementById("artGrid");
+
 
     const filtered = activeFilter === "all"
       ? posts
@@ -681,35 +602,9 @@
          });
     }
 
-    /* hide art gallery if filtering to non-art section */
-    const showArt = activeFilter === "all" || activeFilter === "art";
-    artLabel.style.display = showArt ? "block" : "none";
-    artGrid.style.display = showArt ? "grid" : "none";
+
   }
 
-  /* ── RENDER ARCHIVE ── */
-  function renderArchive() {
-    const container = document.getElementById("archiveList");
-    const byYear = {};
-    posts.forEach(p => {
-      const y = p.date.slice(0,4);
-      if (!byYear[y]) byYear[y] = [];
-      byYear[y].push(p);
-    });
-    const years = Object.keys(byYear).sort((a,b) => b-a);
-    container.innerHTML = years.map(y => `
-      <div class="archive-year">${y}</div>
-      <ul class="archive-list">
-        ${byYear[y].map(p => `
-          <li class="archive-item">
-            <span class="archive-item-date">${formatDate(p.date)}</span>
-            <span class="archive-item-title">${p.title}</span>
-            <span class="archive-item-tag ${p.section}">${sectionLabels[p.section]}</span>
-          </li>
-        `).join("")}
-      </ul>
-    `).join("");
-  }
 
   function formatDate(d) {
     return new Date(d).toLocaleDateString("en-US", { month:"short", day:"numeric" });
