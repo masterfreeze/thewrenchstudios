@@ -42,3 +42,28 @@
     </div>
   </div>
 </div>
+
+
+  /* ── RENDER ARCHIVE ── */
+  function renderArchive() {
+    const container = document.getElementById("archiveList");
+    const byYear = {};
+    posts.forEach(p => {
+      const y = p.date.slice(0,4);
+      if (!byYear[y]) byYear[y] = [];
+      byYear[y].push(p);
+    });
+    const years = Object.keys(byYear).sort((a,b) => b-a);
+    container.innerHTML = years.map(y => `
+      <div class="archive-year">${y}</div>
+      <ul class="archive-list">
+        ${byYear[y].map(p => `
+          <li class="archive-item">
+            <span class="archive-item-date">${formatDate(p.date)}</span>
+            <span class="archive-item-title">${p.title}</span>
+            <span class="archive-item-tag ${p.section}">${sectionLabels[p.section]}</span>
+          </li>
+        `).join("")}
+      </ul>
+    `).join("");
+  }
