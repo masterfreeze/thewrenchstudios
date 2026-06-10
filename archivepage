@@ -1,0 +1,32 @@
+ /* ── ARCHIVE PAGE ── */
+  .archive-section { padding: 40px; }
+  .archive-year {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin: 28px 0 12px;
+  }
+  .archive-list { list-style: none; }
+  .archive-item {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 0.5px solid var(--border);
+    cursor: pointer;
+    transition: background 0.1s;
+  }
+  .archive-item:hover .archive-item-title { color: var(--accent); }
+  .archive-item-date { font-size: 11px; color: var(--text-dim); min-width: 80px; }
+  .archive-item-title { font-size: 14px; color: var(--text-primary); flex: 1; transition: color 0.15s; }
+  .archive-item-tag {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .archive-item-tag.icebox { color: var(--color-blog); }
+  .archive-item-tag.library { color: var(--color-story); }
+  .archive-item-tag.comics { color: var(--color-comic); }
+  .archive-item-tag.art { color: var(--color-art); }
+  .archive-item-tag.other { color: #888780; }
