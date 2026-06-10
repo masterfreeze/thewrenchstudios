@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Wrench Studios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Zen+Brush+2&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --accent: #4fc3e8;
+    --accent-dim: #3daad0;
+    --bg: #07090f;
+    --bg-card: #080c12;
+    --bg-hover: #0d1520;
+    --border: #0f1825;
+    --border-mid: #1e3048;
+    --text-primary: #c8dff0;
+    --text-bright: #ddeeff;
+    --text-muted: #3a5570;
+    --text-dim: #1e3048;
+    --color-blog: #5b8fbf;
+    --color-story: #3daad0;
+    --color-comic: #8ab4d4;
+    --color-art: #4fc3e8;
+    --font-body: system-ui, -apple-system, sans-serif;
+    --font-display: 'Zen Brush 2', serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* ── NAV ── */
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 40px;
+    border-bottom: 0.5px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    z-index: 100;
+  }
+
+  .nav-logo {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    cursor: pointer;
+  }
+  .nav-logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    transition: color 0.15s;
+  }
+  .nav-links a:hover,
+  .nav-links a.active { color: var(--text-primary); }
+
+  .nav-search-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-muted);
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    transition: color 0.15s;
+  }
+  .nav-search-btn:hover { color: var(--text-primary); }
+
+  /* Search overlay */
+  .search-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(7,9,15,0.92);
+    z-index: 200;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 120px;
+  }
+  .search-overlay.open { display: flex; }
+  .search-box {
+    width: 100%;
+    max-width: 560px;
+    padding: 0 24px;
+  }
+  .search-input {
+    width: 100%;
+    background: var(--bg-card);
+    border: 0.5px solid var(--border-mid);
+    border-radius: 6px;
+    padding: 14px 18px;
+    font-size: 16px;
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    outline: none;
+  }
+  .search-input::placeholder { color: var(--text-muted); }
+  .search-hint {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 10px;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 64px 40px 48px;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .hero-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: 52px;
+    font-weight: 400;
+    color: var(--text-bright);
+    line-height: 1.1;
+    margin-bottom: 14px;
+  }
+  .hero-sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── TABS ── */
+  .tabs {
+    display: flex;
+    padding: 0 40px;
+    border-bottom: 0.5px solid var(--border);
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+
+  .tab {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 14px 0;
+    margin-right: 26px;
+    border-bottom: 1.5px solid transparent;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color 0.15s, border-color 0.15s;
+    background: none;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    font-family: var(--font-body);
+  }
+  .tab:hover { color: var(--text-primary); }
+  .tab.active {
+    color: var(--text-primary);
+    border-bottom-color: var(--accent);
+  }
+
+  /* ── CONTENT ── */
+  .content { padding: 36px 40px; }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 18px;
+  }
+
+  /* ── POST GRID ── */
+  .post-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 0.5px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 36px;
+  }
+
+  .post-card {
+    background: var(--bg-card);
+    padding: 20px;
+    cursor: pointer;
+    transition: background 0.15s;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .post-card:hover { background: var(--bg-hover); }
+
+  .post-card-type {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .post-card-type.icebox { color: var(--color-blog); }
+  .post-card-type.library { color: var(--color-story); }
+  .post-card-type.comics { color: var(--color-comic); }
+  .post-card-type.art { color: var(--color-art); }
+  .post-card-type.other { color: #888780; }
+
+  .post-card-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+    line-height: 1.4;
+  }
+  .post-card-meta {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 2px;
+  }
+
+  /* empty state */
+  .empty-state {
+    display: none;
+    padding: 40px 0;
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 13px;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── ART GALLERY ── */
+  .art-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 0.5px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .art-thumb {
+    background: var(--bg-card);
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.15s;
+    overflow: hidden;
+    position: relative;
+  }
+  .art-thumb:hover { background: var(--bg-hover); }
+  .art-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .art-thumb-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: var(--border-mid);
+  }
+  .art-thumb-placeholder svg { width: 28px; height: 28px; }
+  .art-thumb-placeholder span { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* ── UPLOAD ── */
+  .upload-section { margin-top: 28px; }
+  .upload-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    border: 0.5px dashed var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.15s;
+    background: none;
+    width: 100%;
+    font-family: var(--font-body);
+    color: var(--text-dim);
+  }
+  .upload-bar:hover { border-color: var(--border-mid); }
+  .upload-bar svg { width: 16px; height: 16px; flex-shrink: 0; }
+  .upload-bar span { font-size: 12px; letter-spacing: 0.02em; }
+
+  /* file input hidden */
+  #file-input { display: none; }
+
+  /* upload modal */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(7,9,15,0.88);
+    z-index: 300;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--bg-card);
+    border: 0.5px solid var(--border-mid);
+    border-radius: 10px;
+    padding: 32px;
+    width: 100%;
+    max-width: 480px;
+  }
+  .modal-title {
+    font-family: var(--font-display);
+    font-size: 22px;
+    color: var(--text-bright);
+    margin-bottom: 6px;
+  }
+  .modal-sub {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+  }
+  .form-group { margin-bottom: 16px; }
+  .form-label {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  .form-input, .form-select, .form-textarea {
+    width: 100%;
+    background: var(--bg);
+    border: 0.5px solid var(--border-mid);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    border-color: var(--accent);
+  }
+  .form-select option { background: #0d1520; }
+  .form-textarea { resize: vertical; min-height: 80px; }
+  .form-drop {
+    border: 0.5px dashed var(--border-mid);
+    border-radius: 6px;
+    padding: 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .form-drop:hover { border-color: var(--accent); }
+  .form-drop-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    display: block;
+    margin-top: 8px;
+  }
+  .form-drop-hint { font-size: 11px; color: var(--text-dim); margin-top: 4px; }
+  .modal-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 24px;
+    justify-content: flex-end;
+  }
+  .btn {
+    font-size: 12px;
+    padding: 9px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    font-family: var(--font-body);
+    transition: opacity 0.15s;
+  }
+  .btn:hover { opacity: 0.85; }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    font-weight: 500;
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--text-muted);
+    border: 0.5px solid var(--border-mid);
+  }
+
+  /* ── DONATE ── */
+  .donate-section {
+    margin: 0 40px;
+    border-top: 0.5px solid var(--border);
+    padding: 40px 0;
+  }
+  .donate-inner {
+    border: 0.5px solid var(--border);
+    border-radius: 10px;
+    padding: 28px 32px;
+    background: var(--bg-card);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .donate-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .donate-heading {
+    font-family: var(--font-display);
+    font-size: 22px;
+    color: var(--text-bright);
+    font-weight: 400;
+    margin-bottom: 10px;
+  }
+  .donate-sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    max-width: 400px;
+  }
+  .donate-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 180px;
+    flex-shrink: 0;
+  }
+  .donate-btn {
+    font-size: 13px;
+    padding: 11px 22px;
+    border-radius: 6px;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    font-family: var(--font-body);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: opacity 0.15s;
+    text-decoration: none;
+  }
+  .donate-btn:hover { opacity: 0.85; }
+  .donate-primary {
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    font-weight: 500;
+  }
+  .donate-secondary {
+    background: transparent;
+    color: var(--text-muted);
+    border: 0.5px solid var(--border-mid);
+  }
+  .donate-note {
+    font-size: 10px;
+    color: var(--text-dim);
+    line-height: 1.6;
+    letter-spacing: 0.03em;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 22px 40px;
+    border-top: 0.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-logo {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    cursor: pointer;
+  }
+  .footer-logo span { color: var(--accent); }
+  .footer-contact {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    transition: color 0.15s;
+  }
+  .footer-contact:hover { color: var(--text-primary); }
+
+  /* ── ABOUT PAGE ── */
+  .about-section {
+    padding: 56px 40px;
+    max-width: 680px;
+  }
+  .about-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .about-title {
+    font-family: var(--font-display);
+    font-size: 38px;
+    font-weight: 400;
+    color: var(--text-bright);
+    margin-bottom: 24px;
+  }
+  .about-body {
+    font-size: 15px;
+    color: var(--text-muted);
+    line-height: 1.8;
+  }
+  .about-body p + p { margin-top: 16px; }
+
+  /* ── ARCHIVE PAGE ── */
+  .archive-section { padding: 40px; }
+  .archive-year {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin: 28px 0 12px;
+  }
+  .archive-list { list-style: none; }
+  .archive-item {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 0.5px solid var(--border);
+    cursor: pointer;
+    transition: background 0.1s;
+  }
+  .archive-item:hover .archive-item-title { color: var(--accent); }
+  .archive-item-date { font-size: 11px; color: var(--text-dim); min-width: 80px; }
+  .archive-item-title { font-size: 14px; color: var(--text-primary); flex: 1; transition: color 0.15s; }
+  .archive-item-tag {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .archive-item-tag.icebox { color: var(--color-blog); }
+  .archive-item-tag.library { color: var(--color-story); }
+  .archive-item-tag.comics { color: var(--color-comic); }
+  .archive-item-tag.art { color: var(--color-art); }
+  .archive-item-tag.other { color: #888780; }
+
+  /* ── PAGE VISIBILITY ── */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .nav { padding: 14px 20px; }
+    .hero { padding: 40px 20px 32px; }
+    .hero-title { font-size: 36px; }
+    .tabs { padding: 0 20px; }
+    .content { padding: 24px 20px; }
+    .donate-section { margin: 0 20px; }
+    .donate-inner { flex-direction: column; }
+    .donate-actions { width: 100%; }
+    footer { padding: 18px 20px; }
+    .about-section, .archive-section { padding: 32px 20px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SEARCH OVERLAY -->
+<div class="search-overlay" id="searchOverlay" role="dialog" aria-label="Search">
+  <div class="search-box">
+    <input class="search-input" id="searchInput" type="text" placeholder="Search posts, stories, art…" autocomplete="off" />
+    <p class="search-hint">Press Esc to close</p>
+  </div>
+</div>
+
+<!-- UPLOAD MODAL -->
+<div class="modal-overlay" id="uploadModal" role="dialog" aria-label="Upload new piece">
+  <div class="modal">
+    <div class="modal-title">Upload a new piece</div>
+    <p class="modal-sub">Add a blog post, PDF, artwork, or comic scan to the studio.</p>
+    <div class="form-group">
+      <label class="form-label" for="upload-title">Title</label>
+      <input class="form-input" id="upload-title" type="text" placeholder="Give it a name…" />
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="upload-section">Section</label>
+      <select class="form-select" id="upload-section">
+        <option value="">Choose a section…</option>
+        <option value="icebox">The Icebox (blog)</option>
+        <option value="library">Library (short stories)</option>
+        <option value="comics">Comics</option>
+        <option value="art">Art</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="upload-desc">Description (optional)</label>
+      <textarea class="form-textarea" id="upload-desc" placeholder="A short description…"></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">File</label>
+      <div class="form-drop" id="dropZone">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:#1e3048;margin:0 auto;display:block"><path d="M12 15V3m0 0L8 7m4-4 4 4M3 17v2a2 2 0 002 2h14a2 2 0 002-2v-2"/></svg>
+        <span class="form-drop-label">Click to choose a file, or drag and drop</span>
+        <span class="form-drop-hint">PDF, PNG, JPG, GIF — up to 20MB</span>
+        <input type="file" id="file-input" accept=".pdf,.png,.jpg,.jpeg,.gif,.webp" />
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="cancelUpload">Cancel</button>
+      <button class="btn btn-primary" id="confirmUpload">Publish</button>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo" onclick="showPage('home')">The <span>Wrench</span> Studios</div>
+  <ul class="nav-links">
+    <li><a href="#" id="nav-home" class="active" onclick="showPage('home');return false;">Home</a></li>
+    <li><a href="#" id="nav-about" onclick="showPage('about');return false;">About</a></li>
+    <li><a href="#" id="nav-archive" onclick="showPage('archive');return false;">Archive</a></li>
+    <li>
+      <button class="nav-search-btn" onclick="openSearch()" aria-label="Search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      </button>
+    </li>
+  </ul>
+</nav>
+
+<!-- ═══════════════════════════════ HOME PAGE ═══════════════════════════════ -->
+<div class="page active" id="page-home">
+
+  <div class="hero">
+    <div class="hero-eyebrow">Master Freeze presents</div>
+    <h1 class="hero-title">The Wrench Studios</h1>
+    <p class="hero-sub">The only official website.</p>
+  </div>
+
+  <div class="tabs" role="tablist">
+    <button class="tab active" role="tab" data-filter="all">All</button>
+    <button class="tab" role="tab" data-filter="icebox">The Icebox</button>
+    <button class="tab" role="tab" data-filter="comics">Awesome Comix</button>
+    <button class="tab" role="tab" data-filter="library">The Library</button>
+    <button class="tab" role="tab" data-filter="art">Artwork</button>
+    <button class="tab" role="tab" data-filter="other">Other</button>
+  </div>
+
+  <div class="content">
+    <div class="section-label">Recent posts</div>
+    <div class="post-grid" id="postGrid">
+      <!-- Cards injected by JS -->
+    </div>
+    <div class="empty-state" id="emptyState">No posts in this section yet.</div>
+
+    <div class="section-label" id="artGalleryLabel">Art gallery</div>
+    <div class="art-grid" id="artGrid">
+    </div>
+
+    <div class="upload-section">
+      <button class="upload-bar" onclick="openUploadModal()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 15V3m0 0L8 7m4-4 4 4M3 17v2a2 2 0 002 2h14a2 2 0 002-2v-2"/></svg>
+        <span>Upload a new piece — blog post, PDF, artwork, or comic scan</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- DONATE -->
+  <div class="donate-section">
+    <div class="donate-inner">
+      <div class="donate-text">
+        <div class="donate-eyebrow">Support the work</div>
+        <div class="donate-heading">Keep the studio running.</div>
+        <p class="donate-sub">If you wish to support the website or enjoy the content, please consider donating!</p>
+      </div>
+      <div class="donate-actions">
+        <!-- Replace YOUR_PAYPAL_LINK with your actual PayPal.me URL -->
+        <a class="donate-btn donate-primary" href="https://paypal.me/zainansari000" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 11C7 7.686 9.686 5 13 5h1.5C17.538 5 20 7.462 20 10.5S17.538 16 14.5 16H13l-1 5H8l1-10H7z"/><path d="M4 16c0 0 .5 3 3.5 3"/></svg>
+          Donate via PayPal
+        </a>
+        <!-- Replace $YOUR_CASHTAG with your actual Cash App $cashtag -->
+        <a class="donate-btn donate-secondary" href="https://cash.app/$MasterFreeze" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+          Send via Cash App
+        </a>
+        <span class="donate-note">All funds go directly to Master Freeze, the owner of this page and its contents.</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- end home -->
+
+<!-- ═══════════════════════════════ ABOUT PAGE ═══════════════════════════════ -->
+<div class="page" id="page-about">
+  <div class="about-section">
+    <div class="about-eyebrow">About</div>
+    <h2 class="about-title">Master Freeze &amp; The Wrench Studios.</h2>
+    <div class="about-body">
+      <p>Welcome to the only domain where you can access the creative work of Master Freeze.</p>
+      <p>The Wrench Studios is a creative workshop — part blog, part library, part gallery. You'll find short stories, comics, digital art, hand-drawn scans, and writing on whatever's been on my mind. It's all made by hand and posted here first.</p>
+      <p>For business inquiries: <a href="mailto:ansarizain1222@gmail.com" style="color:var(--accent)">ansarizain1222@gmail.com</a><br>
+      For everything else: <a href="https://instagram.com/wrench.studios0_" target="_blank" rel="noopener" style="color:var(--accent)">@wrench.studios0_</a> on Instagram.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ ARCHIVE PAGE ═══════════════════════════════ -->
+<div class="page" id="page-archive">
+  <div class="archive-section">
+    <div class="section-label">Full archive</div>
+    <div id="archiveList">
+      <!-- Injected by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo" onclick="showPage('home')">The <span>Wrench</span> Studios</div>
+  <a class="footer-contact" href="https://instagram.com/wrench.studios0_" target="_blank" rel="noopener">Instagram</a>
+</footer>
+
+<script>
+  /* ── DATA STORE ── */
+  const posts = [
+  ];
+
+  const sectionLabels = {
+    icebox: "The Icebox",
+    library: "Library",
+    comics: "Comics",
+    art: "Art",
+    other: "Other",
+  };
+
+  let activeFilter = "all";
+
+  /* ── RENDER POSTS ── */
+  function renderPosts() {
+    const grid = document.getElementById("postGrid");
+    const empty = document.getElementById("emptyState");
+    const artLabel = document.getElementById("artGalleryLabel");
+    const artGrid = document.getElementById("artGrid");
+
+    const filtered = activeFilter === "all"
+      ? posts
+      : posts.filter(p => p.section === activeFilter);
+
+    grid.innerHTML = "";
+    if (filtered.length === 0) {
+      grid.style.display = "none";
+      empty.style.display = "block";
+    } else {
+      grid.style.display = "grid";
+      empty.style.display = "none";
+      filtered.forEach(p => {
+        const card = document.createElement("div");
+        card.className = "post-card";
+        card.innerHTML = `
+          <div class="post-card-type ${p.section}">${sectionLabels[p.section]}</div>
+          <div class="post-card-title">${p.title}</div>
+          <div class="post-card-meta">${formatDate(p.date)} &nbsp;·&nbsp; ${p.meta}</div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    /* hide art gallery if filtering to non-art section */
+    const showArt = activeFilter === "all" || activeFilter === "art";
+    artLabel.style.display = showArt ? "block" : "none";
+    artGrid.style.display = showArt ? "grid" : "none";
+  }
+
+  /* ── RENDER ARCHIVE ── */
+  function renderArchive() {
+    const container = document.getElementById("archiveList");
+    const byYear = {};
+    posts.forEach(p => {
+      const y = p.date.slice(0,4);
+      if (!byYear[y]) byYear[y] = [];
+      byYear[y].push(p);
+    });
+    const years = Object.keys(byYear).sort((a,b) => b-a);
+    container.innerHTML = years.map(y => `
+      <div class="archive-year">${y}</div>
+      <ul class="archive-list">
+        ${byYear[y].map(p => `
+          <li class="archive-item">
+            <span class="archive-item-date">${formatDate(p.date)}</span>
+            <span class="archive-item-title">${p.title}</span>
+            <span class="archive-item-tag ${p.section}">${sectionLabels[p.section]}</span>
+          </li>
+        `).join("")}
+      </ul>
+    `).join("");
+  }
+
+  function formatDate(d) {
+    return new Date(d).toLocaleDateString("en-US", { month:"short", day:"numeric" });
+  }
+
+  /* ── TABS ── */
+  document.querySelectorAll(".tab").forEach(tab => {
+    tab.addEventListener("click", () => {
+      document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      activeFilter = tab.dataset.filter;
+      renderPosts();
+    });
+  });
+
+  /* ── PAGE NAVIGATION ── */
+  function showPage(name) {
+    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+    document.getElementById("page-" + name).classList.add("active");
+    document.querySelectorAll(".nav-links a").forEach(a => a.classList.remove("active"));
+    const navLink = document.getElementById("nav-" + name);
+    if (navLink) navLink.classList.add("active");
+    if (name === "archive") renderArchive();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  /* ── SEARCH ── */
+  function openSearch() {
+    document.getElementById("searchOverlay").classList.add("open");
+    document.getElementById("searchInput").focus();
+  }
+  document.getElementById("searchOverlay").addEventListener("click", e => {
+    if (e.target === e.currentTarget) closeSearch();
+  });
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape") { closeSearch(); closeUploadModal(); }
+  });
+  function closeSearch() {
+    document.getElementById("searchOverlay").classList.remove("open");
+    document.getElementById("searchInput").value = "";
+  }
+
+  document.getElementById("searchInput").addEventListener("input", e => {
+    const q = e.target.value.toLowerCase().trim();
+    if (!q) { renderPosts(); return; }
+    const matches = posts.filter(p =>
+      p.title.toLowerCase().includes(q) || sectionLabels[p.section].toLowerCase().includes(q)
+    );
+    const grid = document.getElementById("postGrid");
+    const empty = document.getElementById("emptyState");
+    grid.innerHTML = "";
+    if (matches.length === 0) {
+      grid.style.display = "none";
+      empty.style.display = "block";
+    } else {
+      grid.style.display = "grid";
+      empty.style.display = "none";
+      matches.forEach(p => {
+        const card = document.createElement("div");
+        card.className = "post-card";
+        card.innerHTML = `
+          <div class="post-card-type ${p.section}">${sectionLabels[p.section]}</div>
+          <div class="post-card-title">${p.title}</div>
+          <div class="post-card-meta">${formatDate(p.date)} &nbsp;·&nbsp; ${p.meta}</div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+  });
+
+  /* ── UPLOAD MODAL ── */
+  function openUploadModal() {
+    document.getElementById("uploadModal").classList.add("open");
+  }
+  function closeUploadModal() {
+    document.getElementById("uploadModal").classList.remove("open");
+  }
+  document.getElementById("cancelUpload").addEventListener("click", closeUploadModal);
+  document.getElementById("uploadModal").addEventListener("click", e => {
+    if (e.target === e.currentTarget) closeUploadModal();
+  });
+
+  document.getElementById("dropZone").addEventListener("click", () => {
+    document.getElementById("file-input").click();
+  });
+
+  document.getElementById("dropZone").addEventListener("dragover", e => {
+    e.preventDefault();
+    e.currentTarget.style.borderColor = "var(--accent)";
+  });
+  document.getElementById("dropZone").addEventListener("dragleave", e => {
+    e.currentTarget.style.borderColor = "";
+  });
+  document.getElementById("dropZone").addEventListener("drop", e => {
+    e.preventDefault();
+    e.currentTarget.style.borderColor = "";
+    const file = e.dataTransfer.files[0];
+    if (file) showSelectedFile(file.name);
+  });
+  document.getElementById("file-input").addEventListener("change", e => {
+    if (e.target.files[0]) showSelectedFile(e.target.files[0].name);
+  });
+  function showSelectedFile(name) {
+    document.querySelector(".form-drop-label").textContent = name;
+  }
+
+  document.getElementById("confirmUpload").addEventListener("click", () => {
+    const title   = document.getElementById("upload-title").value.trim();
+    const section = document.getElementById("upload-section").value;
+    const desc    = document.getElementById("upload-desc").value.trim();
+    if (!title || !section) {
+      alert("Please fill in a title and choose a section.");
+      return;
+    }
+    const newPost = {
+      id: Date.now(),
+      title,
+      section,
+      date: new Date().toISOString().slice(0,10),
+      meta: desc || "New post",
+    };
+    posts.unshift(newPost);
+    renderPosts();
+    renderArchive();
+    closeUploadModal();
+    document.getElementById("upload-title").value = "";
+    document.getElementById("upload-section").value = "";
+    document.getElementById("upload-desc").value = "";
+    document.querySelector(".form-drop-label").textContent = "Click to choose a file, or drag and drop";
+  });
+
+  /* ── INIT ── */
+  renderPosts();
+</script>
+</body>
+</html>
