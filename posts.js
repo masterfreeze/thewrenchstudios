@@ -5,7 +5,7 @@ const posts = [
     date: "2026-06-10",
     meta: "Testing document",
     file: "library/Formal Lab Report.pdf"
-  }
+  },
   
   {
     title: "Master Freeze",
