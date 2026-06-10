@@ -1,8 +1,8 @@
 const posts = [
   {
-    title: "",
+    title: "Coming Soon!",
     section: "",
-    date: "",
+    date: "2026-06-30",
     meta: "",
     file: ""
   }
