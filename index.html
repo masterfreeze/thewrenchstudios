@@ -666,18 +666,12 @@
       filtered.forEach(p => {
         const card = document.createElement("div");
         card.className = "post-card";
-
+        card.dataset.id = p.id;      
         card.innerHTML = `
            <div class="post-card-type ${p.section}">${sectionLabels[p.section]}</div>
            <div class="post-card-title">${p.title}</div>
            <div class="post-card-meta">${formatDate(p.date)} · ${p.meta}</div>
           `;
-
-        card.addEventListener("click", () => {
-           if (p.file) {
-              openPost(p);
-           }
-         });
 
         grid.appendChild(card);
          });
@@ -717,6 +711,19 @@
     return new Date(d).toLocaleDateString("en-US", { month:"short", day:"numeric" });
   }
 
+ /* Card Creation Archive */
+ document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("archive-viewer").addEventListener("click", (e) => {
+    const card = e.target.closest(".card");
+    if (!card) return;
+
+    const id = card.dataset.id;
+    const post = posts.find(p => p.id === id);
+
+    if (post?.file) openPost(post);
+  });
+});
+ 
   /* ── TABS ── */
   document.querySelectorAll(".tab").forEach(tab => {
     tab.addEventListener("click", () => {
