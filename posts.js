@@ -5,6 +5,6 @@ const posts = [
     date: "2026-06-10",
     meta: "Digital artwork",
     file: "artwork/raw.png"
-  },
+  }
 
 ];
