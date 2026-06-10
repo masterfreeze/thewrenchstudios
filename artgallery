@@ -37,6 +37,11 @@
   .art-thumb-placeholder svg { width: 28px; height: 28px; }
   .art-thumb-placeholder span { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; }
 
+//PASTE AT BOTTOM OF HOME PAGE SECTION 'div'
+    <div class="section-label" id="artGalleryLabel">Art gallery</div>
+    <div class="art-grid" id="artGrid">
+    </div>
+
 // PASTE UNDER RENDER POSTS SECTION
     const artGrid = document.getElementById("artGrid");
        
