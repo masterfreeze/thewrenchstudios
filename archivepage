@@ -43,6 +43,8 @@
   </div>
 </div>
 
+// PASTE UNDER NAV
+    <li><a href="#" id="nav-archive" onclick="showPage('archive');return false;">Archive</a></li>
 
   /* ── RENDER ARCHIVE ── */
   function renderArchive() {
