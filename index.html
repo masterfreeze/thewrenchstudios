@@ -671,6 +671,12 @@
           <div class="post-card-title">${p.title}</div>
           <div class="post-card-meta">${formatDate(p.date)} &nbsp;·&nbsp; ${p.meta}</div>
         `;
+
+       card.addEventListener("click", () => {
+           if (p.file) {
+              openPost(p);
+         }
+      });
         grid.appendChild(card);
       });
     }
