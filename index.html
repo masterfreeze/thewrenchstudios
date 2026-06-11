@@ -652,7 +652,9 @@
     const q = e.target.value.toLowerCase().trim();
     if (!q) { renderPosts(); return; }
     const matches = posts.filter(p =>
-      p.title.toLowerCase().includes(q) || sectionLabels[p.section].toLowerCase().includes(q)
+      p.title.toLowerCase().includes(q) ||
+      p.meta.toLowerCase().includes(q) ||
+      sectionLabels[p.section].toLowerCase().includes(q)
     );
     const grid = document.getElementById("postGrid");
     const empty = document.getElementById("emptyState");
