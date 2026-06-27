@@ -1,4 +1,13 @@
 const posts = [
+
+  {
+    title: "The Wrench Studios Official Logo",
+    section: "art",
+    date: "2026-07-01",
+    meta: "The first new logo!",
+    file: "artwork/Studios.png"
+  },
+  
   {
     title: "Master Freeze Official Logo",
     section: "art",
@@ -6,5 +15,5 @@ const posts = [
     meta: "Take a look at the legend himself.",
     file: "artwork/raw.png"
   }
-
+  
 ];
