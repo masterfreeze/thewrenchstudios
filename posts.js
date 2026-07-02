@@ -5,7 +5,7 @@ const posts = [
     section: "icebox",
     date: "2026-07-02",
     meta: "Welcome back to the Icebox.",
-    file: "icebox/1_The Return.pdf"
+    file: "icebox/1_ The Return.pdf"
   },
   
   {
