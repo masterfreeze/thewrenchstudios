@@ -1,7 +1,7 @@
 const posts = [
 
   {
-    title: "The Icebox #1: The Return",
+    title: "Issue #1: The Return",
     section: "icebox",
     date: "2026-07-02",
     meta: "Welcome back to the Icebox.",
