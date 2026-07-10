@@ -1,6 +1,14 @@
 const posts = [
 
   {
+    title: "Issue #2: The Wrench Studios",
+    section: "icebox",
+    date: "2026-07-11",
+    meta: "Learn about where the Wrench came from!",
+    file: "icebox/2_ The Wrench Studios.pdf"
+  },
+  
+  {
     title: "Issue #1: The Return",
     section: "icebox",
     date: "2026-07-02",
