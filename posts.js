@@ -1,5 +1,6 @@
 const posts = [
 
+  
   {
     title: "Classix: T.H.U.G.",
     section: "comics",
@@ -23,6 +24,14 @@ const posts = [
     meta: "The earliest comics that still remain!",
     file: "comics/Nonsense Original Scans.pdf"
   },
+
+  {
+    title: "The Awesome Comix Official Logo",
+    section: "art",
+    date: "2026-07-18",
+    meta: "A new era of Awesome!",
+    file: "artwork/AC New Logo.png"
+  },
   
   {
     title: "Issue #3: The Awesome Comix",
@@ -38,6 +47,14 @@ const posts = [
     date: "2026-07-11",
     meta: "Learn about where the Wrench came from!",
     file: "icebox/2_ The Wrench Studios.pdf"
+  },
+
+   {
+    title: "The Icebox Official Logo",
+    section: "art",
+    date: "2026-07-02",
+    meta: "New Icebox Emblem!",
+    file: "artwork/The Icebox Logo.png"
   },
   
   {
