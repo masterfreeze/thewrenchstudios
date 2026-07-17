@@ -1,11 +1,35 @@
 const posts = [
 
   {
+    title: "Classix: T.H.U.G.",
+    section: "comics",
+    date: "2026-07-18",
+    meta: "The original scans of #1-4 from 2014!",
+    file: "comics/THUG 1-4 Original Scans.pdf"
+  },
+  
+  {
+    title: "Classix: Stupid Machine",
+    section: "comics",
+    date: "2026-07-18",
+    meta: "The original scans from 2014!",
+    file: "comics/Stupid Machine Original Scans.pdf"
+  },
+  
+  {
+    title: "Classix: Nonsense Comics Origin",
+    section: "comics",
+    date: "2026-07-18",
+    meta: "The earliest comics that still remain!",
+    file: "comics/Nonsense Original Scans.pdf"
+  },
+  
+  {
     title: "Issue #3: The Awesome Comix",
     section: "icebox",
     date: "2026-07-18",
     meta: "The story of how I started drawing comics!",
-    file: "icebox/3_ The Awesome Comxi.pdf"
+    file: "icebox/3_ The Awesome Comix.pdf"
   },
   
   {
