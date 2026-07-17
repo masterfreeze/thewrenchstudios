@@ -29,7 +29,7 @@ const posts = [
     section: "icebox",
     date: "2026-07-18",
     meta: "The story of how I started drawing comics!",
-    file: "icebox/3_ The Awesome Comix.pdf"
+    file: "icebox/3_ Awesome Comix.pdf"
   },
   
   {
