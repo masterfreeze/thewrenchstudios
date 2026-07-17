@@ -1,6 +1,14 @@
 const posts = [
 
   {
+    title: "Issue #3: The Awesome Comix",
+    section: "icebox",
+    date: "2026-07-18",
+    meta: "The story of how I started drawing comics!",
+    file: "icebox/3_ The Awesome Comxi.pdf"
+  },
+  
+  {
     title: "Issue #2: The Wrench Studios",
     section: "icebox",
     date: "2026-07-11",
