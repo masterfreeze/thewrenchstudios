@@ -72,6 +72,14 @@ const posts = [
     meta: "The first new logo!",
     file: "artwork/Studios.png"
   },
+
+  {
+    title: "Issue #0: Master Freeze",
+    section: "icebox",
+    date: "0000-00-00",
+    meta: "Learn about the legend.",
+    file: "icebox/0_ Master Freeze.pdf"
+  },
   
   {
     title: "Master Freeze Official Logo",
