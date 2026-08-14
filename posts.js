@@ -1,5 +1,12 @@
 const posts = [
 
+  {
+    title: "Issue #4: Brand New Venom",
+    section: "icebox",
+    date: "2026-08-15",
+    meta: "A new era for the symbiote antihero.",
+    file: "icebox/4_ Brand New Venom.pdf"
+  },
   
   {
     title: "Classix: T.H.U.G.",
