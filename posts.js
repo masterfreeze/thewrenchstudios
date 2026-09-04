@@ -1,6 +1,14 @@
 const posts = [
 
   {
+    title: "The Legion of the Wrench End Movie [Official Script]",
+    section: "library",
+    date: "2026-09-05",
+    meta: "Read the written script for the final Legion project.",
+    file: "library/Wrench End Movie Script.pdf"
+  },
+  
+  {
     title: "Issue #4: Brand New Venom",
     section: "icebox",
     date: "2026-08-15",
